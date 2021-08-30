@@ -1,6 +1,6 @@
-import AsideComponent from "./components/AsideComponent/AsideComponent";
-import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
-import MainComponent from "./components/MainComponent/MainComponent";
+import AsideComponent from "./components/AsideComponent";
+import HeaderComponent from "./components/HeaderComponent";
+import MainComponent from "./components/MainComponent";
 import "./styles.scss";
 
 export default function App() {

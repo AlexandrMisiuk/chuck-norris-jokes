@@ -7,6 +7,7 @@ $secondaryColor: #ABABAB;
 
 body{
   overflow-x: hidden;
+  width: 100vw;
 }
 
 .container {
@@ -28,6 +29,10 @@ body{
   @media screen and (max-width: 1199px){
     padding: 40px 40px/834px * 100vw;
     flex-basis: 100vw;
+  }
+
+  @media screen and (max-width: 575px){
+    padding: 20px;
   }
 
   header{
@@ -185,6 +190,10 @@ body{
         border-radius: 20px;
         margin-bottom: 20px;
 
+        @media screen and (max-width: 575px){
+          padding: 20px;
+        }
+
         .main-jokecard-like{
           text-align: right;
         }
@@ -221,12 +230,22 @@ body{
               font-size: 18px/16px * 1rem;
               line-height: 26px/16px * 1rem;
               margin-bottom: 23px;
+
+              @media screen and (max-width: 575px){
+                margin-bottom: 28px;
+              }
+              
             }
 
             .main-jokecard-body-content-info{
               display: flex;
               flex-flow: row nowrap;
               align-items: center;
+
+              @media screen and (max-width: 575px){
+                flex-flow: column nowrap;
+                align-items: flex-start;
+              }
 
               :first-child{
                 font-style: normal;
@@ -246,6 +265,11 @@ body{
                 background: #FFFFFF;
                 border-radius: 6px;
                 padding: 6px 20px;
+
+                @media screen and (max-width: 575px){
+                  margin-top: 10px;
+                  margin-left: 0;
+                }
               }
             }
           }
@@ -255,16 +279,19 @@ body{
   }
 }
 
+.show{
+  display: flex !important; 
+} 
+
 .aside-wrapper{
   flex-basis: 480px/1440px * 100vw;
 
   @media screen and (max-width: 1199px){
     display: none;
-
-    .show{
-      display: block;
-      position: absolute;
-    }
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    background: rgba(0, 0, 0, 0.3);
   }
 
   aside.favourite{
@@ -272,14 +299,35 @@ body{
     background: #F8F8F8;
     padding: 40px;
 
+    @media screen and (max-width: 1199px){
+      flex-basis: 480px;
+      height: auto;
+      margin-left: auto;
+    }
+
+    @media screen and (max-width: 575px){
+      padding: 20px;
+      flex-basis: 100vw;
+      margin-left: 0;
+    }
+
     .favourite-btn{
       display: flex;
       flex-flow: row nowrap;
       margin-bottom: 20px;
 
+      @media screen and (max-width: 1199px){
+        cursor: pointer;
+        justify-content: flex-end;
+      }
+
       svg{
         display: none;
         margin-right: 10px;
+
+        @media screen and (max-width: 1199px){
+          display: block;
+        }
       }
 
       h3{
