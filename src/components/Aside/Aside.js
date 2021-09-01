@@ -1,13 +1,44 @@
 import React from "react";
-import CrossSVG from "../svgComponents/CrossSVG";
+
+import CrossSVG from "../svg/CrossSVG";
+import EqualsSVG from "../svg/EqualsSVG";
+
+import { useDispatch, useSelector } from "react-redux";
+import { changeFavouritesVisibility } from "../../store/actions/visibilityOfFavourites";
+
+const selectIsFavouritesShow = (state) => state.favouritesVisibility;
 
 export default function AsideComponent() {
-  return (
-    <div className="aside-wrapper">
-      <aside className="favourite">
-        <div className="favourite-btn">
-          <CrossSVG />
+  const isFavouritesShow = useSelector(selectIsFavouritesShow);
+  // console.log(isFavouritesShow);
+  const dispatch = useDispatch();
 
+  const asideWrapperClassName = isFavouritesShow
+    ? "aside-wrapper show"
+    : "aside-wrapper";
+
+  const favouriteBtnIcon = isFavouritesShow ? <CrossSVG /> : <EqualsSVG />;
+
+  function handleChangeFavouriteVisibility() {
+    const action = changeFavouritesVisibility(isFavouritesShow ? false : true);
+    dispatch(action);
+  }
+
+  function getBodyHeightPx() {
+    return document.body.scrollHeight + "px";
+  }
+
+  return (
+    <div
+      className={asideWrapperClassName}
+      style={{ minHeight: getBodyHeightPx() }}
+    >
+      <aside className="favourite">
+        <div
+          className="favourite-btn"
+          onClick={handleChangeFavouriteVisibility}
+        >
+          {favouriteBtnIcon}
           <h3>Favourite</h3>
         </div>
         <div className="aside-jokecard">
