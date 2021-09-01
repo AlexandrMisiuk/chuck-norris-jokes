@@ -1,9 +1,10 @@
 import React from "react";
-import EqualsSVG from "./svgComponents/EqualsSVG";
-import CrossSVG from "./svgComponents/CrossSVG";
+import EqualsSVG from "../svg/EqualsSVG";
+import CrossSVG from "../svg/CrossSVG";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeFavouritesVisibility } from "../actions/visibilityOfFavourites";
+
+import { changeFavouritesVisibility } from "../../store/actions/visibilityOfFavourites";
 
 const selectIsFavouritesShow = (state) => state.favouritesVisibility;
 

@@ -1,16 +1,17 @@
-import AsideComponent from "./components/AsideComponent";
-import HeaderComponent from "./components/HeaderComponent";
-import MainComponent from "./components/MainComponent";
-import "./styles.scss";
+import React from "react";
+
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Aside from "./components/Aside";
 
 export default function App() {
   return (
     <div className="container">
       <div className="wrapper">
-        <HeaderComponent />
-        <MainComponent />
+        <Header />
+        <Main />
       </div>
-      <AsideComponent />
+      <Aside />
     </div>
   );
 }

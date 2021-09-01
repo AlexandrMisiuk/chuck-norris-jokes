@@ -1,4 +1,5 @@
 import React from "react";
+import JokeSearchForm from "../JokeSearchForm";
 
 export default function MainComponent() {
   return (
@@ -7,44 +8,7 @@ export default function MainComponent() {
         <h2>Hey!</h2>
         <h3>Let’s try to find a joke for you:</h3>
       </div>
-      <form>
-        <div>
-          <input
-            type="radio"
-            name="api_reponse_type"
-            value="random"
-            id="randomRadioInput"
-            defaultChecked
-          />
-          <label htmlFor="randomRadioInput">Random</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="api_reponse_type"
-            value="categories"
-            id="randomСategoriesInput"
-          />
-          <label htmlFor="randomСategoriesInput">Сategories</label>
-        </div>
-        <div className="categories-btns">
-          <button type="button">animal</button>
-          <button type="button" className="active">
-            animal
-          </button>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="api_reponse_type"
-            value="search"
-            id="randomСategoriesInput"
-          />
-          <label htmlFor="randomSearchInput">Search</label>
-        </div>
-        <input type="text" placeholder="Free text search..." />
-        <button type="submit">Get a joke</button>
-      </form>
+      <JokeSearchForm />
       <div className="main-jokecards-wrapper">
         <div className="main-jokecard">
           <p className="main-jokecard-like">
