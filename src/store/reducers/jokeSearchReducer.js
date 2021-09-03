@@ -1,24 +1,34 @@
 import {
-  JOKE_SEARCH_TYPE,
-  JOKE_CATEGORIES,
-  JOKE_SEARCH_ERROR
+  SEARCH_TYPE,
+  CATEGORIES,
+  SEARCH_ERROR,
+  SELECTED_CATEGORY,
+  SEARCH_QUERY
 } from "../actions/jokeSearch";
 
 const initialState = {
   searchType: "random",
+  searchQuery: "",
   categories: [],
+  selectedCategory: "",
   error: null
 };
 
 export const jokeSearchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case JOKE_SEARCH_TYPE: {
+    case SEARCH_TYPE: {
       return { ...state, searchType: action.payload };
     }
-    case JOKE_CATEGORIES: {
+    case SEARCH_QUERY: {
+      return { ...state, searchQuery: action.payload };
+    }
+    case CATEGORIES: {
       return { ...state, categories: action.payload };
     }
-    case JOKE_SEARCH_ERROR: {
+    case SELECTED_CATEGORY: {
+      return { ...state, selectedCategory: action.payload };
+    }
+    case SEARCH_ERROR: {
       return { ...state, error: action.payload };
     }
     default: {

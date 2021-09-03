@@ -1,7 +1,8 @@
 import React from "react";
 
-export default function CategoryBtn({ category }) {
+export default function CategoryBtn({ category, onClick }) {
   const inputProps = {
+    onClick: onClick,
     id: "id" + category,
     type: "radio",
     name: "joke_category",
