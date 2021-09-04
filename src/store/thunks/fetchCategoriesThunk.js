@@ -1,4 +1,4 @@
-import { getJokeCategories, catchTheError } from "../actions/jokeSearch";
+import { getJokeCategories, catchTheSearchError } from "../actions/jokeSearch";
 
 const baseUrl = "https://api.chucknorris.io/jokes/";
 const query = "categories";
@@ -11,7 +11,7 @@ export function fetchJokeCategories(dispatch) {
         dispatch(getJokeCategories(result));
       },
       (error) => {
-        dispatch(catchTheError(error));
+        dispatch(catchTheSearchError(error));
       }
     );
 }

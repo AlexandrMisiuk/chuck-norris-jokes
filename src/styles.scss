@@ -171,6 +171,7 @@ body{
       }
 
       button[type="submit"]{
+        transition: all 0.1s ease-out 0.1s;
         font-style: normal;
         font-weight: bold;
         font-size: 16px/16px * 1rem;
@@ -181,6 +182,11 @@ body{
         border-radius: 10px;
         width: 152px;
         height: 42px;
+
+        &:hover{
+          cursor: pointer;
+          transform: scale(1.05);
+        }
       }
     }
 
@@ -194,13 +200,18 @@ body{
         background: #F8F8F8;
         border-radius: 20px;
         margin-bottom: 20px;
+        display: flex;
+        flex-flow: column nowrap;
 
         @media screen and (max-width: 575px){
           padding: 20px;
         }
 
         .main-jokecard-like{
-          text-align: right;
+          margin-left: auto;
+          &:hover{
+            cursor: pointer;
+          }
         }
 
         .main-jokecard-body{
@@ -213,6 +224,7 @@ body{
           }
 
           .main-jokecard-body-content{
+            flex: 1;
             display: flex;
             flex-flow: column nowrap;
 
@@ -252,14 +264,15 @@ body{
                 align-items: flex-start;
               }
 
-              :first-child{
+              .main-jokecard-body-content-info-update{
                 font-style: normal;
                 font-weight: normal;
                 font-size: 10px/16px * 1rem;
                 line-height: 14px/16px * 1rem;
                 color: $secondaryColor;
               }
-              :last-child{
+
+              .main-jokecard-body-content-info-category{
                 margin-left: auto;
                 font-style: normal;
                 font-weight: 500;
@@ -351,9 +364,14 @@ body{
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
       margin-bottom: 20px;
+      display: flex;
+      flex-flow: column nowrap;
 
       .aside-jokecard-like{
-        text-align: right;
+        margin-left: auto;
+        &:hover{
+          cursor: pointer;
+        }
       }
 
       .aside-jokecard-body{
@@ -391,7 +409,7 @@ body{
           }
 
           .aside-jokecard-body-content-info{
-            p{
+            .aside-jokecard-body-content-info-update{
               font-style: normal;
               font-weight: normal;
               font-size: 10px/16px * 1rem;

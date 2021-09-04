@@ -1,24 +1,40 @@
-export const JOKE_SEARCH_TYPE = "jokes/JOKE_SEARCH_TYPE";
-export const JOKE_CATEGORIES = "jokes/JOKE_CATEGORIES";
-export const JOKE_SEARCH_ERROR = "jokes/JOKE_SEARCH_ERROR";
+export const SEARCH_TYPE = "jokes/SEARCH_TYPE";
+export const CATEGORIES = "jokes/CATEGORIES";
+export const SEARCH_ERROR = "jokes/SEARCH_ERROR";
+export const SELECTED_CATEGORY = "jokes/SELECTED_CATEGORY";
+export const SEARCH_QUERY = "jokes/SEARCH_QUERY";
+
+export const setSearchQuery = (query = "") => {
+  return {
+    type: SEARCH_QUERY,
+    payload: query
+  };
+};
+
+export const changeSelectedJokeCategory = (category = "") => {
+  return {
+    type: SELECTED_CATEGORY,
+    payload: category
+  };
+};
 
 export const changeJokeSearchType = (searchType = "") => {
   return {
-    type: JOKE_SEARCH_TYPE,
+    type: SEARCH_TYPE,
     payload: searchType
   };
 };
 
 export const getJokeCategories = (fetchResponse = []) => {
   return {
-    type: JOKE_CATEGORIES,
+    type: CATEGORIES,
     payload: fetchResponse
   };
 };
 
-export const catchTheError = (error) => {
+export const catchTheSearchError = (error) => {
   return {
-    type: JOKE_SEARCH_ERROR,
+    type: SEARCH_ERROR,
     payload: error
   };
 };

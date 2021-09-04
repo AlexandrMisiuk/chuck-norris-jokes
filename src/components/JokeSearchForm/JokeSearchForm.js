@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeJokeSearchType } from "../../store/actions/jokeSearch";
+import {
+  changeJokeSearchType,
+  changeSelectedJokeCategory,
+  setSearchQuery
+} from "../../store/actions/jokeSearch";
 import { fetchJokeCategories } from "../../store/thunks/fetchCategoriesThunk";
 import CategoryBtn from "../CategoryBtn";
 
 const selectJokeSearch = (state) => state.jokeSearch;
 
-export default function JokeSearchFormComponent() {
+export default function JokeSearchFormComponent({ handleGetJoke }) {
   const jokeSearch = useSelector(selectJokeSearch);
-  console.log(jokeSearch);
+  // console.log("jokeSearch ===>", jokeSearch);
   const jokeSearchType = jokeSearch.searchType;
   const jokeSearchCategories = jokeSearch.categories;
 
@@ -17,9 +21,15 @@ export default function JokeSearchFormComponent() {
 
   //elements
   const jokeSearchCategoriesBtns = jokeSearchCategories.map(
-    (category, index) => (
-      <CategoryBtn key={index} category={category} index={index} />
-    )
+    (category, index) => {
+      const categoryBtnProps = {
+        key: index,
+        category: category,
+        onClick: handleChangeSelectedJokeCategory
+      };
+
+      return <CategoryBtn {...categoryBtnProps} />;
+    }
   );
 
   //styles
@@ -55,8 +65,9 @@ export default function JokeSearchFormComponent() {
 
   const textSearchInputProps = {
     type: "text",
-    placeholder: "Free text search...",
-    style: { display: textSearchInputDisplay }
+    placeholder: "Free text search... ",
+    style: { display: textSearchInputDisplay },
+    onChange: handleChangeSearchQuery
   };
 
   //effects
@@ -70,8 +81,33 @@ export default function JokeSearchFormComponent() {
     dispatch(action);
   }
 
+  function handleChangeSelectedJokeCategory(e) {
+    const value = e.target.value;
+    const action = changeSelectedJokeCategory(value);
+    dispatch(action);
+  }
+
+  function handleChangeSearchQuery(e) {
+    const value = e.target.value;
+    const style = e.target.style;
+    // console.dir(e.target);
+    const maxQueryLength = 120;
+    const minQueryLength = 3;
+
+    if (value.length < minQueryLength || value.length > maxQueryLength) {
+      e.target.placeholder = "Request must be more than 3 characters.";
+      style.borderColor = "red";
+    }
+
+    if (value.length >= minQueryLength) {
+      style.borderColor = "";
+      const action = setSearchQuery(value);
+      dispatch(action);
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={handleGetJoke}>
       <div>
         <input defaultChecked {...randomRadioInputProps} />
         <label htmlFor="randomRadioInput">Random</label>
