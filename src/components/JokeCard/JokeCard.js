@@ -9,14 +9,10 @@ import LinkSVG from "../svg/LinkSVG";
 export default function JokeCard({
   isMain,
   isFavourite,
-  id,
-  url,
-  value,
-  updated_at,
-  categories,
   jokeItem,
-  handleChangeFavourite
+  handleChangeFavourite,
 }) {
+  const { id, url, value, updated_at, categories } = jokeItem;
   const localeUpdatedAtDate = new Date(updated_at).toLocaleString();
 
   //styles
@@ -24,13 +20,13 @@ export default function JokeCard({
 
   //elements
   const heart = isFavourite ? <FilledHeartSVG /> : <HeartSVG />;
-  const bodyIcon = isMain ? (
-    <MainJokecardBodyIconSVG />
-  ) : (
+  const bodyIcon = isFavourite ? (
     <AsideJokecardBodyIconSVG />
+  ) : (
+    <MainJokecardBodyIconSVG />
   );
 
-  const categoriesElements = !isMain
+  const categoriesElements = isFavourite
     ? null
     : categories.map((category, index) => (
         <p

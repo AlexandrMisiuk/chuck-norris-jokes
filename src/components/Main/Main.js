@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { catchTheJokesError } from "../../store/actions/jokes";
-import { addFavourite } from "../../store/actions/favourites";
+import { addFavourite, removeFavourite } from "../../store/actions/favourites";
 import { fetchJokes } from "../../store/thunks/fetchJokesThunk";
 
 import JokeSearchForm from "../JokeSearchForm";
@@ -14,15 +14,13 @@ const selectJokes = (state) => state.jokes;
 const selectFavourites = (state) => state.favourites;
 
 export default function MainComponent() {
-  const jokeSearch = useSelector(selectJokeSearch);
-  // console.log("jokeSearch ===>", jokeSearch);
-  const jokeSearchType = jokeSearch.searchType;
-  const jokeSelectedCategory = jokeSearch.selectedCategory;
-  const jokeSearchQuery = jokeSearch.searchQuery;
+  const {
+    searchType: jokeSearchType,
+    selectedCategory: jokeSelectedCategory,
+    searchQuery: jokeSearchQuery,
+  } = useSelector(selectJokeSearch);
 
-  const jokes = useSelector(selectJokes);
-  // console.log("jokes ===>", jokes);
-  const receivedJokes = jokes.receivedJokes;
+  const { receivedJokes, error: jokesError } = useSelector(selectJokes);
   // console.log("receivedJokes ===>", receivedJokes);
 
   const favourites = useSelector(selectFavourites);
@@ -33,17 +31,24 @@ export default function MainComponent() {
   //elements
   const jokeCards = receivedJokes.map((joke) => {
     const props = {
-      isFavourite: isFavourite(joke),
       isMain: true,
+      isFavourite: isFavourite(joke),
       key: joke.id,
       jokeItem: joke,
-      handleChangeFavourite: handleAddFavourite
+      handleChangeFavourite: handleToggleFavourite,
     };
-    return <JokeCard {...joke} {...props} />;
+    return <JokeCard {...props} />;
   });
 
-  function handleAddFavourite(jokeItem) {
-    if (!isFavourite(jokeItem)) {
+  function handleToggleFavourite(jokeItem) {
+    if (isFavourite(jokeItem)) {
+      const filteredFavourites = favourites.filter(
+        (favouriteJoke) => favouriteJoke.id !== jokeItem.id
+      );
+      // console.log("filteredFavourites ===>", filteredFavourites);
+      const action = removeFavourite(filteredFavourites);
+      dispatch(action);
+    } else {
       const action = addFavourite({ ...jokeItem });
       dispatch(action);
     }
@@ -51,7 +56,7 @@ export default function MainComponent() {
 
   function handleGetJoke(e) {
     e.preventDefault();
-    if (jokes.error) dispatch(catchTheJokesError(null));
+    if (jokesError) dispatch(catchTheJokesError(null));
 
     const action = fetchJokes(
       jokeSearchType,

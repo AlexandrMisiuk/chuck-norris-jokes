@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeJokeSearchType,
   changeSelectedJokeCategory,
-  setSearchQuery
+  setSearchQuery,
 } from "../../store/actions/jokeSearch";
 import { fetchJokeCategories } from "../../store/thunks/fetchCategoriesThunk";
 import CategoryBtn from "../CategoryBtn";
@@ -12,10 +12,8 @@ import CategoryBtn from "../CategoryBtn";
 const selectJokeSearch = (state) => state.jokeSearch;
 
 export default function JokeSearchFormComponent({ handleGetJoke }) {
-  const jokeSearch = useSelector(selectJokeSearch);
-  // console.log("jokeSearch ===>", jokeSearch);
-  const jokeSearchType = jokeSearch.searchType;
-  const jokeSearchCategories = jokeSearch.categories;
+  const { searchType: jokeSearchType, categories: jokeSearchCategories } =
+    useSelector(selectJokeSearch);
 
   const dispatch = useDispatch();
 
@@ -25,7 +23,7 @@ export default function JokeSearchFormComponent({ handleGetJoke }) {
       const categoryBtnProps = {
         key: index,
         category: category,
-        onClick: handleChangeSelectedJokeCategory
+        onClick: handleChangeSelectedJokeCategory,
       };
 
       return <CategoryBtn {...categoryBtnProps} />;
@@ -36,7 +34,7 @@ export default function JokeSearchFormComponent({ handleGetJoke }) {
   const categoriesBtnsDisplay = jokeSearchType === "category" ? "" : "none";
   const categoriesBtnsStyles = { display: categoriesBtnsDisplay };
 
-  const textSearchInputDisplay = jokeSearchType === "search" ? "" : "none";
+  const textSearchInputDisplay = jokeSearchType === "search" ? "block" : "";
 
   //props
   const randomRadioInputProps = {
@@ -44,7 +42,7 @@ export default function JokeSearchFormComponent({ handleGetJoke }) {
     type: "radio",
     name: "api_reponse_type",
     value: "random",
-    id: "randomRadioInput"
+    id: "randomRadioInput",
   };
 
   const categoriesRadioInputProps = {
@@ -52,7 +50,7 @@ export default function JokeSearchFormComponent({ handleGetJoke }) {
     type: "radio",
     name: "api_reponse_type",
     value: "category",
-    id: "categoriesRadioInput"
+    id: "categoriesRadioInput",
   };
 
   const searchRadioInputProps = {
@@ -60,14 +58,14 @@ export default function JokeSearchFormComponent({ handleGetJoke }) {
     type: "radio",
     name: "api_reponse_type",
     value: "search",
-    id: "searchRadioInput"
+    id: "searchRadioInput",
   };
 
   const textSearchInputProps = {
     type: "text",
     placeholder: "Free text search... ",
     style: { display: textSearchInputDisplay },
-    onChange: handleChangeSearchQuery
+    onChange: handleChangeSearchQuery,
   };
 
   //effects
@@ -99,7 +97,7 @@ export default function JokeSearchFormComponent({ handleGetJoke }) {
       style.borderColor = "red";
     }
 
-    if (value.length >= minQueryLength) {
+    if (value.length >= minQueryLength && value.length <= maxQueryLength) {
       style.borderColor = "";
       const action = setSearchQuery(value);
       dispatch(action);

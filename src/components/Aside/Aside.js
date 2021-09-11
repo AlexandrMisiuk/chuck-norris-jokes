@@ -27,12 +27,11 @@ export default function AsideComponent() {
   //props
   const asideWrapperProps = {
     className: asideWrapperClassName,
-    style: { minHeight: getBodyHeightPx() }
   };
 
   const favouriteBtnProps = {
     className: "favourite-btn",
-    onClick: handleChangeFavouriteVisibility
+    onClick: handleChangeFavouriteVisibility,
   };
 
   // elements
@@ -40,13 +39,12 @@ export default function AsideComponent() {
 
   const jokeCards = favourites.map((joke) => {
     const props = {
-      isMain: false,
       isFavourite: true,
       key: joke.id,
       jokeItem: joke,
-      handleChangeFavourite: handleRemoveFavourite
+      handleChangeFavourite: handleRemoveFavourite,
     };
-    return <JokeCard {...joke} {...props} />;
+    return <JokeCard {...props} />;
   });
 
   //set favourites to Local Storage
@@ -70,10 +68,6 @@ export default function AsideComponent() {
     // console.log("filteredFavourites ===>", filteredFavourites);
     const action = removeFavourite(filteredFavourites);
     dispatch(action);
-  }
-
-  function getBodyHeightPx() {
-    return document.body.scrollHeight + "px";
   }
 
   return (
