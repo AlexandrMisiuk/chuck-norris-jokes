@@ -20,22 +20,22 @@ export default function JokeCard({
 
   //elements
   const heart = isFavourite ? <FilledHeartSVG /> : <HeartSVG />;
-  const bodyIcon = isFavourite ? (
-    <AsideJokecardBodyIconSVG />
-  ) : (
+  const bodyIcon = isMain ? (
     <MainJokecardBodyIconSVG />
+  ) : (
+    <AsideJokecardBodyIconSVG />
   );
 
-  const categoriesElements = isFavourite
-    ? null
-    : categories.map((category, index) => (
+  const categoriesElements = isMain
+    ? categories.map((category, index) => (
         <p
           className={`${blockClassName}-jokecard-body-content-info-category`}
           key={index}
         >
           {category}
         </p>
-      ));
+      ))
+    : null;
 
   return (
     <div

@@ -3,7 +3,7 @@ import {
   CATEGORIES,
   SEARCH_ERROR,
   SELECTED_CATEGORY,
-  SEARCH_QUERY
+  SEARCH_QUERY,
 } from "../actions/jokeSearch";
 
 const initialState = {
@@ -11,10 +11,10 @@ const initialState = {
   searchQuery: "",
   categories: [],
   selectedCategory: "",
-  error: null
+  error: null,
 };
 
-export const jokeSearchReducer = (state = initialState, action) => {
+export const jokeSearch = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_TYPE: {
       return { ...state, searchType: action.payload };

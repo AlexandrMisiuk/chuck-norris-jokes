@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { catchTheJokesError } from "../../store/actions/jokes";
 import { addFavourite, removeFavourite } from "../../store/actions/favourites";
-import { fetchJokes } from "../../store/thunks/fetchJokesThunk";
+import { fetchJokes, getSearchURL } from "../../store/thunks/fetchJokesThunk";
 
 import JokeSearchForm from "../JokeSearchForm";
 import JokeCard from "../JokeCard";
@@ -58,21 +58,20 @@ export default function MainComponent() {
     e.preventDefault();
     if (jokesError) dispatch(catchTheJokesError(null));
 
-    const action = fetchJokes(
+    const url = getSearchURL(
       jokeSearchType,
       jokeSelectedCategory,
       jokeSearchQuery
     );
+    const action = fetchJokes(url);
     // console.log(action);
     dispatch(action);
   }
 
   function isFavourite(jokeItem) {
-    let isFavourite;
-    for (const favouriteJoke of favourites) {
-      isFavourite = Object.is(favouriteJoke.id, jokeItem.id);
-      if (isFavourite) break;
-    }
+    const isFavourite = !!favourites.filter(
+      (favouriteJoke) => favouriteJoke.id === jokeItem.id
+    ).length;
     return isFavourite;
   }
 

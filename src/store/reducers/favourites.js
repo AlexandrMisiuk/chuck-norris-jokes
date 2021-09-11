@@ -12,7 +12,7 @@ const initialState = favouritesFromLocalStorageJSON
   ? JSON.parse(favouritesFromLocalStorageJSON)
   : [];
 
-export const favouritesReducer = (state = initialState, action) => {
+export const favourites = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FAVOURITE: {
       return [...state, action.payload];
