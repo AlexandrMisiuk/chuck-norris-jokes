@@ -68,11 +68,9 @@ export default function MainComponent() {
   }
 
   function isFavourite(jokeItem) {
-    let isFavourite;
-    for (const favouriteJoke of favourites) {
-      isFavourite = Object.is(favouriteJoke.id, jokeItem.id);
-      if (isFavourite) break;
-    }
+    const isFavourite = !!favourites.filter(
+      (favouriteJoke) => favouriteJoke.id === jokeItem.id
+    ).length;
     return isFavourite;
   }
 
