@@ -1,6 +1,24 @@
 import { setReceivedJokes, catchTheJokesError } from "../actions/jokes";
 
-export function fetchJokes(
+export function fetchJokes(url) {
+  return (dispatch) => {
+    return fetch(url)
+      .then((res) => res.json())
+      .then(
+        (responseResult) => {
+          if (responseResult.result)
+            dispatch(setReceivedJokes(responseResult.result));
+          else dispatch(setReceivedJokes([responseResult]));
+        },
+        (error) => {
+          dispatch(setReceivedJokes([]));
+          dispatch(catchTheJokesError(error));
+        }
+      );
+  };
+}
+
+export function getSearchURL(
   searchType = "random",
   selectedCategory = "",
   searchQuery = ""
@@ -19,19 +37,5 @@ export function fetchJokes(
   if (searchType === "search" && searchQuery)
     url = `${baseUrl}/${searchType}?query=${searchQuery}`;
 
-  return (dispatch) => {
-    return fetch(url)
-      .then((res) => res.json())
-      .then(
-        (responseResult) => {
-          if (responseResult.result)
-            dispatch(setReceivedJokes(responseResult.result));
-          else dispatch(setReceivedJokes([responseResult]));
-        },
-        (error) => {
-          dispatch(setReceivedJokes([]));
-          dispatch(catchTheJokesError(error));
-        }
-      );
-  };
+  return url;
 }

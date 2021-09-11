@@ -1,14 +1,14 @@
 import { combineReducers } from "redux";
 
-import { favouritesVisibilityReducer } from "./favouritesVisibilityReducer";
-import { jokeSearchReducer } from "./jokeSearchReducer";
-import { jokesReducer } from "./jokesReducer";
-import { favouritesReducer } from "./favouritesReducer";
+import { favouritesVisibility } from "./favouritesVisibility";
+import { jokeSearch } from "./jokeSearch";
+import { jokes } from "./jokes";
+import { favourites } from "./favourites";
 const rootReducer = combineReducers({
-  favouritesVisibility: favouritesVisibilityReducer,
-  jokeSearch: jokeSearchReducer,
-  jokes: jokesReducer,
-  favourites: favouritesReducer
+  favouritesVisibility,
+  jokeSearch,
+  jokes,
+  favourites,
 });
 
 export default rootReducer;
