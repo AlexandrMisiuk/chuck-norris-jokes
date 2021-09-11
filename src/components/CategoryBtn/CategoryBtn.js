@@ -6,13 +6,12 @@ export default function CategoryBtn({ category, onClick }) {
     id: "id" + category,
     type: "radio",
     name: "joke_category",
-    value: category,
-    style: { display: "none" }
+    value: category
   };
 
   const labelProps = {
     className: "category-btn",
-    htmlFor: "id" + category
+    htmlFor: "id" + category,
   };
 
   return (
