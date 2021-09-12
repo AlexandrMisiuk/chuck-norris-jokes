@@ -5,15 +5,11 @@ import EqualsSVG from "../svg/EqualsSVG";
 import JokeCard from "../JokeCard";
 
 import { useDispatch, useSelector } from "react-redux";
-import { changeFavouritesVisibility } from "../../store/actions/visibilityOfFavourites";
 import { removeFavourite } from "../../store/actions/favourites";
 
-const selectIsFavouritesShow = (state) => state.favouritesVisibility;
 const selectFavourites = (state) => state.favourites;
 
-export default function AsideComponent() {
-  const isFavouritesShow = useSelector(selectIsFavouritesShow);
-  // console.log(isFavouritesShow);
+export default function Aside({ isFavouritesShow, setIsFavouritesShow }) {
   const favourites = useSelector(selectFavourites);
   // console.log("favourites ===>", favourites);
 
@@ -31,7 +27,7 @@ export default function AsideComponent() {
 
   const favouriteBtnProps = {
     className: "favourite-btn",
-    onClick: handleChangeFavouriteVisibility,
+    onClick: () => setIsFavouritesShow(!isFavouritesShow),
   };
 
   // elements
@@ -55,11 +51,6 @@ export default function AsideComponent() {
     const favouritesToLocalStorageJSON = JSON.stringify(favourites);
     localStorage.setItem(key, favouritesToLocalStorageJSON);
   }, [favourites]);
-
-  function handleChangeFavouriteVisibility() {
-    const action = changeFavouritesVisibility(isFavouritesShow ? false : true);
-    dispatch(action);
-  }
 
   function handleRemoveFavourite(jokeItem) {
     const filteredFavourites = favourites.filter(
